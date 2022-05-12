@@ -1,0 +1,14 @@
+---
+// Settings
+// Components
+import {DEFAULT_LANG} from "./defaults.mjs";
+
+// Content
+const {
+  htmlClass,
+  lang=DEFAULT_LANG } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang={lang} class={htmlClass}>
+  <slot></slot>
+</html>

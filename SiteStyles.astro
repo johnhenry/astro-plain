@@ -1,0 +1,10 @@
+---
+const {hrefs=[], critical=""} = Astro.props;
+---
+{critical ?
+`<style>
+${critical}
+</style>` : null}
+{hrefs.map(href=>
+  <link rel="stylesheet" href={href} />)
+}

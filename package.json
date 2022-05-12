@@ -1,0 +1,20 @@
+{
+  "name": "astro-plain",
+  "version": "0.0.5",
+  "description": "Generic, batteries-included prototype for Astro pages",
+  "main": "./index.astro",
+  "homepage": "https://github.com/johnhenry/astro-plain#readme",
+  "type": "module",
+  "exports": {
+    ".": "./index.mjs",
+    "./astro": "./index.astro",
+    "./mjs": "./index.mjs",
+    "./astro/tagmanagerbody": "./TagManagerBody.astro"
+  },
+  "keywords": [
+    "astro",
+    "astro-component",
+    "...",
+    "..."
+  ]
+}

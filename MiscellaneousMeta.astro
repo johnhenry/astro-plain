@@ -1,0 +1,46 @@
+---
+const {info} = Astro.props;
+const run = function * (object, prefix=[]){
+  for (const [key, value] of Object.entries(object)) {
+    if(key === "*") {
+      let propname;
+      let content;
+      if(Array.isArray(value)){
+        propname = value[0];
+        content = value[1] || {};
+      }else{
+        propname = 'property';
+        content = {content:value};
+      }
+      yield {
+        [propname]: prefix.join(':'),
+        ...content,
+      }
+    }
+    else if(typeof value === "string" || typeof value === "number" || Array.isArray(value)){
+      let propname;
+      let content;
+      if(Array.isArray(value)){
+        propname = value[0];
+        content = value[1] || {};
+      }else{
+        propname = 'property';
+        content = {content:value};
+      }
+      yield {
+        [propname]:  prefix.concat(key).join(':'),
+        ...content,
+      }
+    }
+    else {
+      yield * run(value,  prefix.concat(key));
+    }
+  }
+};
+---
+{[...run(info)].map(value => {
+    return (
+      <meta {...value} />)
+})}
+
+

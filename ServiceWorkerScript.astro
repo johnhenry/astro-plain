@@ -1,0 +1,10 @@
+---
+const { src, scope, type="classic", updateViaCache:uvc  } = Astro.props;
+
+const updateViaCache = Astro.props['update-via-cache'] ??uvc;
+---
+{src ? <script is:inline define:vars={{src,scope, type, updateViaCache}}>
+  globalThis.addEventListener('load', () => {
+        globalThis.navigator.serviceWorker.register(src, {scope, type, updateViaCache})
+    });
+</script> : null}

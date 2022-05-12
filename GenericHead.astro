@@ -1,0 +1,49 @@
+---
+// Settings
+// Components
+import AppleTouchIconLinks from './AppleTouchIconLinks.astro';
+import DefineWebComponents from './DefineWebComponents.astro';
+import MiscellaneousMeta from './MiscellaneousMeta.astro';
+import ServiceWorkerScript from "./ServiceWorkerScript.astro";
+import SiteScripts from "./SiteScripts.astro";
+import SiteStyles from "./SiteStyles.astro";
+import TagManagerHead from './TagManagerHead.astro';
+
+// Content
+const {
+  title,
+  titleJoiner,
+  canonical,
+  serviceWorkerScript,
+  charSet,
+  manifest,
+  favicon,
+  faviconType,
+  tmid,
+  appleTouchIcons,
+  webComponents,
+  externalScripts,
+  externalStyles,
+  criticalScripts,
+  criticalStyles,
+  meta} = Astro.props;
+  const titles = Array.isArray(title) ? title.join(titleJoiner) : title;
+---
+<head>
+  {tmid ? <TagManagerHead tmid={tmid} /> : ''}
+  <title>{titles}</title>
+  <link
+		rel="canonical"
+		href={canonical}
+	/>
+  {charSet && <meta charset={charSet}>}
+  {meta && <MiscellaneousMeta info={meta} />}
+  <ServiceWorkerScript src={serviceWorkerScript} />
+  {manifest && <link rel="manifest" href={manifest}/>}
+  <link rel="icon" href={favicon} type={faviconType} />
+  <SiteStyles hrefs={externalStyles} critical={criticalStyles}/>
+  <SiteScripts srcs={externalScripts} critical={criticalScripts}/>
+  <AppleTouchIconLinks icons={appleTouchIcons} />
+  <DefineWebComponents components={webComponents} />
+  <slot />
+</head>

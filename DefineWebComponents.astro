@@ -1,0 +1,13 @@
+---
+const {components} = Astro.props;
+---
+<script type="module" is:inline define:vars={{components}} >
+  for (const [name, href, exportName="default"] of components){
+    const elementClass = await import(href).then(module => module[exportName]);
+    globalThis.customElements.define(name, elementClass);
+  }
+</script>
+
+
+
+

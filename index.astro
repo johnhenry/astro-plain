@@ -1,0 +1,59 @@
+---
+// Settings
+// Components
+import GenericHead from "./GenericHead.astro";
+import GenericHTML from "./GenericHTML.astro";
+import {DEFAULT_FAVICON, DEFAULT_FAVICON_TYPE, DEFAULT_LANG, DEFAULT_CHARSET} from "./defaults.mjs";
+
+// Content
+const {
+  title="",
+  titleJoiner=' : ',
+  charSet=DEFAULT_CHARSET,
+  description="",
+  keywords="",
+  author="",
+  canonical="",
+  htmlClass="",
+  serviceWorkerScript="",
+  favicon=DEFAULT_FAVICON,
+  faviconType=DEFAULT_FAVICON_TYPE,
+  tmid="",
+  manifest="",
+  criticalStyles="",
+  criticalScripts="",
+  externalStyles=[],
+  externalScripts=[],
+  appleTouchIcons=[],
+  webComponents=[],
+  meta={},
+  lang=DEFAULT_LANG } = Astro.props;
+---
+<!DOCTYPE html>
+<GenericHTML lang={lang} class={htmlClass}>
+  <GenericHead
+    charSet={charSet}
+    title={title}
+    titleJoiner={titleJoiner}
+    author={author}
+    canonical={canonical}
+    serviceWorkerScript={serviceWorkerScript}
+    manifest={manifest}
+    favicon={favicon}
+    faviconType={faviconType}
+    tmid={tmid}
+    appleTouchIcons={appleTouchIcons}
+    webComponents={webComponents}
+    externalStyles={externalStyles}
+    externalScripts={externalScripts}
+    criticalStyles={criticalStyles}
+    criticalScripts={criticalScripts}
+    meta={{
+      description,
+      keywords,
+      author,
+      ...meta}}>
+  <slot name="head"></slot>
+  </GenericHead>
+  <slot></slot>
+</GenericHTML>
