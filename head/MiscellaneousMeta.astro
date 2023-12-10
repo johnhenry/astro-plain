@@ -1,5 +1,35 @@
 ---
-const {info} = Astro.props;
+const {info, twitterMeta, ogMeta} = Astro.props;
+
+const meta = {...info};
+const genMetaTwitter = ({title, description, image}, card="summary_large_image",url=Astro.url.href  )=>{
+
+  return {
+    card,
+    url,
+    title,
+    description,
+    image: new URL(image, Astro.url).href
+  }
+};
+const genMetaOG = ({title, description, image}, type="website", url=Astro.url.href )=>{
+  return {
+    type,
+    url,
+    title,
+    description,
+    image: new URL(image, url).href
+  }
+};
+
+if(twitterMeta){
+  meta.twitter = genMetaTwitter(info);
+}
+
+if(ogMeta){
+  meta.og = genMetaOG(info);
+}
+
 const run = function * (object, prefix=[]){
   for (const [key, value] of Object.entries(object)) {
     if(key === "*") {
@@ -37,8 +67,9 @@ const run = function * (object, prefix=[]){
     }
   }
 };
+
 ---
-{[...run(info)].map(value => {
+{[...run(meta), ].map(value => {
     return (
       <meta {...value} />)
 })}

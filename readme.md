@@ -28,14 +28,15 @@ npm i astro-plain
 
 ```astro
 ---
-import GenericPage from "astro-plain";
-const props = {};
+import Root from "astro-plain";
 ---
-<GenericPage {...props}>
-<body>
-<!-- content --!>
-</body>
-</GenericPage>
+<Root {...Astro.props}>
+  <main>
+    <header> ... </header>
+    ...
+    <footer> ... </footer>
+  </main>
+</Root>
 ```
 
 ## Special Features
@@ -64,13 +65,13 @@ meta property and keys will be joined using ":".
 This is useful for creating meta tags that follow the Open Graph schema.
 
 ```astro
-<GenericPage
+<Root
   meta={{
     og:{
       image: "abc.png",
     },
   }}
-></Generic>
+></Root>
 ```
 
 produces
@@ -81,21 +82,23 @@ produces
 ...
 ```
 
+set the "ogMeta" or "twitterMeta" properties to true and appropriate Open Graph meta tags will be generated from the provided title, image, and description.
+
 ### SEO
 
 This template takes titles, description and keywords as props and produces and produces the appropraite metatags for SEO.
 
 ```astro
-<GenericPage = titles={["Example Web Page", "Part 2" ]} titleJoiner=": "
+<Root = titles={["Example Web Page", "Part 2" ]} titleJoiner=": "
 description="Second of an example web pages."
 keywords={["example", "test", "astro", "page"]}
- >
+ ></Root>
 ```
 
 ```html
 <meta name="title" content="Example Web Page: Part 2" />
 <meta name="description" content="Second of an example web pages" />
-<meta name="keywords " content="example, test, astro, page"" />
+<meta name="keywords " content="example, test, astro, page" />
 ```
 
 ### Google Tag Manager
@@ -114,15 +117,13 @@ component into the body of your applicaiton.
 
 ```astro
 ---
-import GenericPage, {TagManagerBody} from "astro-plain";
+import Root, {TagManagerBody} from "astro-plain";
 const TagManagerID = "GTM-XXXXX";
 ---
-<GenericPage tmid={TagManagerID}>
-  <body>
+<Root tmid={TagManagerID}>
     ...
-    <TagManagerBody tmid={TagManagerID} />
-  </body>
-</GenericPage>
+    <TagManagerBody tmid={TagManagerID} slot="append-to-body"/>
+</Root>
 ```
 
 ## API
@@ -135,19 +136,20 @@ Slot exist to pass components into other components
 
 By default,
 tags passed to the element
-appear immediately after
-the head tag.
+appear withing the body tag.
 
-This _should_ be a single BODY tag.
+#### slot="append-to-head"
 
-#### slot="head"
+Tags passed with the "slot" attribute set to "append-to-head" are appeneded to the HEAD tag.
 
-Tags passed with the "slot" attribute set to "head" are inserted after the HEAD tag.
+#### slot="append-to-body"
+
+Tags passed with the "slot" attribute set to "append-to-body" are appended to BODY tag.
 
 ### Props
 
 Aside from passing in other components,
-this component is configured
+this component is configured to accept a number of props:
 
 #### title
 

@@ -1,20 +1,23 @@
 ---
+// import type { CollectionEntry } from 'astro:content';
+// import Head from '../Head.astro';
+
+// type Props = CollectionEntry<'blog'>['data'];
 // Settings
 // Components
-import GenericHead from "./GenericHead.astro";
-import GenericHTML from "./GenericHTML.astro";
-import {DEFAULT_FAVICON, DEFAULT_FAVICON_TYPE, DEFAULT_LANG, DEFAULT_CHARSET} from "./defaults.mjs";
+import Head from "./Head.astro";
+import {DEFAULT_FAVICON, DEFAULT_FAVICON_TYPE, DEFAULT_LANG, DEFAULT_CHARSET, DEFAULT_TITLE_JOINER} from "./defaults.mjs";
 
 // Content
 const {
   title="",
-  titleJoiner=' : ',
+  titleJoiner=DEFAULT_TITLE_JOINER,
   charSet=DEFAULT_CHARSET,
   description="",
   keywords="",
   author="",
   canonical="",
-  htmlClass="",
+  class:htmlClass="",
   serviceWorkerScript="",
   favicon=DEFAULT_FAVICON,
   faviconType=DEFAULT_FAVICON_TYPE,
@@ -27,11 +30,23 @@ const {
   appleTouchIcons=[],
   webComponents=[],
   meta={},
-  lang=DEFAULT_LANG } = Astro.props;
+  image="",
+  lang=DEFAULT_LANG,
+  twitterMeta=false,
+  ogMeta=false,
+} = Astro.props;
+
+const aggregateMeta = {
+      title,
+      description,
+      keywords,
+      author,
+      image,
+      ...meta};
 ---
 <!DOCTYPE html>
-<GenericHTML lang={lang} class={htmlClass}>
-  <GenericHead
+<html lang={lang} class={htmlClass}>
+    <Head
     charSet={charSet}
     title={title}
     titleJoiner={titleJoiner}
@@ -48,12 +63,14 @@ const {
     externalScripts={externalScripts}
     criticalStyles={criticalStyles}
     criticalScripts={criticalScripts}
-    meta={{
-      description,
-      keywords,
-      author,
-      ...meta}}>
-  <slot name="head"></slot>
-  </GenericHead>
-  <slot></slot>
-</GenericHTML>
+    image={image}
+    meta={aggregateMeta}
+    lang={lang}
+    twitterMeta={twitterMeta}
+    ogMeta={ogMeta}
+> <slot name="append-to-head"></slot></Head>
+	<body>
+		<slot />
+    <slot name="append-to-body"></slot>
+	</body>
+</html>

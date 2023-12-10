@@ -1,6 +1,6 @@
 {
   "name": "astro-plain",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Generic, batteries-included prototype for Astro pages",
   "main": "./index.astro",
   "homepage": "https://github.com/johnhenry/lib/js/astro-plain/0.0.6#readme",

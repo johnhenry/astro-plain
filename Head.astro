@@ -1,0 +1,53 @@
+---
+// Settings
+// Components
+import AppleTouchIconLinks from './head/AppleTouchIconLinks.astro';
+import DefineWebComponents from './head/DefineWebComponents.astro';
+import MiscellaneousMeta from './head/MiscellaneousMeta.astro';
+import ServiceWorkerScript from "./head/ServiceWorkerScript.astro";
+import SiteScripts from "./head/SiteScripts.astro";
+import SiteStyles from "./head/SiteStyles.astro";
+import TagManagerHead from './head/TagManagerHead.astro';
+// Content
+const {
+  title,
+  titleJoiner,
+  canonical,
+  serviceWorkerScript,
+  charSet,
+  manifest,
+  favicon,
+  faviconType,
+  tmid,
+  appleTouchIcons,
+  webComponents,
+  externalScripts,
+  externalStyles,
+  criticalScripts,
+  criticalStyles,
+  meta,
+  lang,
+  twitterMeta,
+  ogMeta,
+} = Astro.props;
+  const titles = Array.isArray(title) ? title.join(titleJoiner) : title;
+  const canonicalURL = canonical ? canonical: new URL(Astro.url.pathname, Astro.site);
+
+---
+<head>
+  {tmid ? <TagManagerHead tmid={tmid} /> : ''}
+  <title>{titles}</title>
+  <link rel="canonical" href={canonicalURL} />
+  {charSet && <meta charset={charSet}/>}
+  {lang && <meta http-equiv="content-language" content={lang}/>}
+  {meta && <MiscellaneousMeta info={meta} twitterMeta={twitterMeta} ogMeta={ogMeta}/>}
+  <ServiceWorkerScript src={serviceWorkerScript} />
+  {manifest && <link rel="manifest" href={manifest}/>}
+  <link rel="icon" href={favicon} type={faviconType} />
+  <SiteStyles hrefs={externalStyles} critical={criticalStyles}/>
+  <SiteScripts srcs={externalScripts} critical={criticalScripts}/>
+  <AppleTouchIconLinks icons={appleTouchIcons} />
+  <DefineWebComponents components={webComponents} />
+  <meta name="generator" content={Astro.generator} />
+  <slot />
+</head>
