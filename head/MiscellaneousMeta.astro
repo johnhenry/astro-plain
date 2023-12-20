@@ -1,40 +1,84 @@
 ---
-const {info, twitterMeta, ogMeta} = Astro.props;
 
-const meta = {...info};
-const genMetaTwitter = ({title, description, image}, card="summary_large_image",url=Astro.url.href  )=>{
+type twitterMeta = {
+  card?: string,
+  url?: string,
+  title?: string,
+  description?: string,
+  image?: string,
+}
+
+type ogMeta = {
+  type?: string,
+  url?: string,
+  title?: string,
+  description?: string,
+  image?: string,
+}
+
+type Info = {
+    title?: string,
+    description?: string,
+    image?: string,
+    twitter?:twitterMeta,
+    og?: ogMeta
+}
+type twitterMetaProps = {
+  ogMeta: true,
+  title:string, description:string, image: string,
+  info?: Info,
+  twitterMeta?: boolean
+}
+
+type ogMetaProps = {
+  twitterMeta?: boolean,
+  title:string, description:string, image: string,
+  info?: Info,
+  ogMeta: true,
+}
+
+type Props = {
+  info?:Info,
+  twitterMeta?: boolean,
+  ogMeta?: boolean,
+} | twitterMetaProps | ogMetaProps;
+
+const { info, twitterMeta, ogMeta }:Props = Astro.props;
+
+const metaData:Info = {...info};
+const genMetaTwitter = ({title, description, image}:Info, card="summary_large_image",url=Astro.url.href  )=>{
 
   return {
     card,
     url,
     title,
     description,
-    image: new URL(image, Astro.url).href
+    image: new URL(image as string, Astro.url).href
   }
 };
-const genMetaOG = ({title, description, image}, type="website", url=Astro.url.href )=>{
+const genMetaOG = ({title, description, image}:Info, type:string="website", url:string=Astro.url.href )=>{
   return {
     type,
     url,
     title,
     description,
-    image: new URL(image, url).href
+    image: new URL(image as string, url).href
   }
 };
 
 if(twitterMeta){
-  meta.twitter = genMetaTwitter(info);
+  metaData.twitter = genMetaTwitter(info!);
 }
 
 if(ogMeta){
-  meta.og = genMetaOG(info);
+  metaData.og = genMetaOG(info!);
 }
 
-const run = function * (object, prefix=[]){
+const run = function * (object:{[k: string]: number|string|{};}, prefix:string[]=[]){
   for (const [key, value] of Object.entries(object)) {
     if(key === "*") {
-      let propname;
-      let content;
+      let propname:string;
+      let content:object;
       if(Array.isArray(value)){
         propname = value[0];
         content = value[1] || {};
@@ -48,8 +92,8 @@ const run = function * (object, prefix=[]){
       }
     }
     else if(typeof value === "string" || typeof value === "number" || Array.isArray(value)){
-      let propname;
-      let content;
+      let propname:string;
+      let content:{[k: string]: number|string;};
       if(Array.isArray(value)){
         propname = value[0];
         content = value[1] || {};
@@ -69,7 +113,7 @@ const run = function * (object, prefix=[]){
 };
 
 ---
-{[...run(meta), ].map(value => {
+{[...run(metaData), ].map(value => {
     return (
       <meta {...value} />)
 })}

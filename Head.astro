@@ -8,6 +8,9 @@ import ServiceWorkerScript from "./head/ServiceWorkerScript.astro";
 import SiteScripts from "./head/SiteScripts.astro";
 import SiteStyles from "./head/SiteStyles.astro";
 import TagManagerHead from './head/TagManagerHead.astro';
+
+import type {HeadProps} from "./types/index.d";
+
 // Content
 const {
   title,
@@ -29,7 +32,7 @@ const {
   lang,
   twitterMeta,
   ogMeta,
-} = Astro.props;
+}:HeadProps = Astro.props;
   const titles = Array.isArray(title) ? title.join(titleJoiner) : title;
   const canonicalURL = canonical ? canonical: new URL(Astro.url.pathname, Astro.site);
 
@@ -50,4 +53,4 @@ const {
   <DefineWebComponents components={webComponents} />
   <meta name="generator" content={Astro.generator} />
   <slot />
-</head>
+</head>./types

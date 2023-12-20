@@ -1,5 +1,8 @@
 ---
-const {components} = Astro.props;
+type Props = {
+  components: string[]
+}
+const {components}:Props = Astro.props;
 ---
 <script type="module" is:inline define:vars={{components}} >
   for (const [name, href, exportName="default", properties={}] of components){

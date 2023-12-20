@@ -1,5 +1,8 @@
 ---
-const { tmid } = Astro.props;
+type Props = {
+  tmid: string;
+};
+const { tmid }:Props = Astro.props;
 ---
 <script is:inline define:vars={{tmid}}>
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

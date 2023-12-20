@@ -5,10 +5,12 @@
 // type Props = CollectionEntry<'blog'>['data'];
 // Settings
 // Components
+
 import Head from "./Head.astro";
 import {DEFAULT_FAVICON, DEFAULT_FAVICON_TYPE, DEFAULT_LANG, DEFAULT_CHARSET, DEFAULT_TITLE_JOINER} from "./defaults.mjs";
 
-// Content
+import type {Meta, Props} from "./types/index.d";
+
 const {
   title="",
   titleJoiner=DEFAULT_TITLE_JOINER,
@@ -34,15 +36,16 @@ const {
   lang=DEFAULT_LANG,
   twitterMeta=false,
   ogMeta=false,
-} = Astro.props;
+}:Props = Astro.props;
 
-const aggregateMeta = {
+const aggregateMeta:Meta = {
       title,
       description,
       keywords,
       author,
       image,
       ...meta};
+
 ---
 <!DOCTYPE html>
 <html lang={lang} class={htmlClass}>
@@ -73,4 +76,4 @@ const aggregateMeta = {
 		<slot />
     <slot name="append-to-body"></slot>
 	</body>
-</html>
+</html>./types

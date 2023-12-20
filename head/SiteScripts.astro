@@ -1,8 +1,13 @@
 ---
-const {srcs=[], critical=";"} = Astro.props;
+type Props = {
+  srcs?: string[];
+  critical?: string;
+  criticalModule?:boolean;
+};
+const {srcs=[], critical=";", criticalModule=true}:Props = Astro.props;
 ---
 {critical ?
-"<script>" + critical +"</script>" : null}
+`<script${criticalModule ? ` type="module"`:``}>` + critical + `</script>` : null}
 {srcs.map(src=>
   <script type="module" src={src} is:inline ></script>)
 }

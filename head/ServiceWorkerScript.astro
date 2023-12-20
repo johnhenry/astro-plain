@@ -1,5 +1,11 @@
 ---
-const { src, scope, type="classic", updateViaCache:uvc  } = Astro.props;
+type Props = {
+    src: string,
+    scope?: string,
+    type?: string,
+    updateViaCache?: string
+}
+const { src, scope, type="classic", updateViaCache:uvc  }:Props = Astro.props;
 
 const updateViaCache = Astro.props['update-via-cache'] ??uvc;
 ---
