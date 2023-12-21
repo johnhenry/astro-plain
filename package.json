@@ -3,18 +3,17 @@
   "version": "0.1.1",
   "description": "Generic, batteries-included prototype for Astro pages",
   "main": "./index.mjs",
-  "types": "./types/index.d.ts",
+  "types": "./astro-plain.d.ts",
   "homepage": "https://github.com/johnhenry/lib/js/astro-plain/0.0.6#readme",
   "type": "module",
   "scripts": {
     "check": "astro check"
   },
   "exports": {
-    ".": "./index.mjs",
+    ".": "./index.ts",
     "./astro": "./index.astro",
-    "./mjs": "./index.mjs",
-    "./astro/tagmanagerbody": "./TagManagerBody.astro",
-    "./types/*": "./types/*.d.ts"
+    "./ts": "./index.ts",
+    "./astro/tagmanagerbody": "./TagManagerBody.astro"
   },
   "keywords": [
     "astro",
@@ -24,6 +23,7 @@
   ],
   "dependencies": {
     "@astrojs/check": "^0.3.3",
+    "@astrojs/ts-plugin": "^1.3.1",
     "astro": "^4.0.6",
     "typescript": "^5.3.3"
   }

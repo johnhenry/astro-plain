@@ -9,7 +9,7 @@ import SiteScripts from "./head/SiteScripts.astro";
 import SiteStyles from "./head/SiteStyles.astro";
 import TagManagerHead from './head/TagManagerHead.astro';
 
-import type {HeadProps} from "./types/index.d";
+import type {HeadProps} from "./astro-plain.d.ts";
 
 // Content
 const {
@@ -53,4 +53,4 @@ const {
   <DefineWebComponents components={webComponents} />
   <meta name="generator" content={Astro.generator} />
   <slot />
-</head>./types
+</head>./types./index

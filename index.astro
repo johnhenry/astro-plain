@@ -7,9 +7,9 @@
 // Components
 
 import Head from "./Head.astro";
-import {DEFAULT_FAVICON, DEFAULT_FAVICON_TYPE, DEFAULT_LANG, DEFAULT_CHARSET, DEFAULT_TITLE_JOINER} from "./defaults.mjs";
+import {DEFAULT_FAVICON, DEFAULT_FAVICON_TYPE, DEFAULT_LANG, DEFAULT_CHARSET, DEFAULT_TITLE_JOINER} from "./defaults.ts";
 
-import type {Meta, Props} from "./types/index.d";
+import type {Meta, Props} from "./astro-plain.d.ts";
 
 const {
   title="",
@@ -76,4 +76,4 @@ const aggregateMeta:Meta = {
 		<slot />
     <slot name="append-to-body"></slot>
 	</body>
-</html>./types
+</html>./types./index./defaults.js

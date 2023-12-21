@@ -1,4 +1,5 @@
-declare module "astro-plain";
+// Remove the declaration of the module "astro-plain"
+// declare module "astro-plain";
 
 export type Meta = {
   title?: string;
@@ -61,3 +62,11 @@ export type Props = {
   twitterMeta?: boolean;
   ogMeta?: boolean;
 };
+
+export type HeadComponent = (props: HeadProps) => string;
+export type AstroPlain = (props: Props) => string;
+
+declare module "astro-plain" {
+  export const Head: HeadComponent;
+  export const Body: AstroPlain;
+}
