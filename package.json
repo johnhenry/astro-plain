@@ -1,6 +1,6 @@
 {
   "name": "astro-plain",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Generic, batteries-included prototype for Astro pages",
   "main": "./index.mjs",
   "types": "./astro-plain.d.ts",
