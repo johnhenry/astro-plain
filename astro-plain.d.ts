@@ -63,10 +63,10 @@ export type Props = {
   ogMeta?: boolean;
 };
 
-export type HeadComponent = (props: HeadProps) => string;
+export type Head = (props: HeadProps) => string;
 export type AstroPlain = (props: Props) => string;
 
 declare module "astro-plain" {
-  export const Head: HeadComponent;
-  export const Body: AstroPlain;
+  export const Head: Head;
+  export const AstroPlain: AstroPlain;
 }
